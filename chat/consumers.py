@@ -60,7 +60,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             except Exception as e:
                 print(e)
                 mylogger.error(str(e.args))
-
+        elif command == 'healthcheck':
+            print('healthcheck')
 
 
     async def subscribe_room(self, room_id):
@@ -191,7 +192,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         Called when someone has joined our chat.
         """
         # Send a message down to the client
-        print('chat connect called')
         await self.send_json(
             {
                 "namespace": "chat",
@@ -203,7 +203,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         Called when someone has joined our chat.
         """
         # Send a message down to the client
-        print('chat join called')
         await self.send_json(
             {
                 "msg_type": MSG_TYPE_SUBSCRIBE,
@@ -212,7 +211,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             },
         )
     async def chat_enter_room(self, event):
-        print('enter read called')
         await self.send_json(
             {
                 "msg_type": MSG_TYPE_ENTER,
@@ -250,7 +248,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         message = await self._get_message_by_pk(event['message_id'])
         serialized = ChatMessageSerializer(message, many = False)
          
-        print('chat message called')
         await self.send_json(
             {
                 "msg_type": MSG_TYPE_MESSAGE,

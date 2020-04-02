@@ -22,7 +22,7 @@ class MyUserCreationForm(UserCreationForm):
 
 class MyUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('name','furigana', 'birthday', 'thumbnail', 'address', 'email',  'phone', 'password')}),
+        (None, {'fields': ('name','furigana', 'birthday', 'thumbnail', 'address', 'phone', 'password')}),
         (_('Personal info'), {'fields': ('clinic_name',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),

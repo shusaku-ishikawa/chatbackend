@@ -10,7 +10,7 @@ urlpatterns = [
     path('gettoken/', views.CustomObtainAuthToken.as_view(), name = "gettoken"),
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('passwordreset/', views.PasswordResetView.as_view(), name = "passwordreset"),
-    path('passwordchange/', views.PasswordChangeView, name = "passwordchange"),
+    path('passwordchange/', views.PasswordChangeView.as_view(), name = "passwordchange"),
 ]
 router = routers.SimpleRouter()
 router.register('users', views.UserViewSet)

@@ -98,9 +98,11 @@ class PasswordChangeView(APIView):
     authentication_classes = (TokenAuthentication,)         
     serializer_class = PasswordChangeSerializer
     def post(self, request, format = None):
+        print('post')
         serializer = self.serializer_class(data = request.data)
         if serializer.is_valid():
             user = request.user
+            print('ine 105')
             if not user.check_password(serializer.data.get('old_password')):
                 return Response(status=status.HTTP_400_BAD_REQUEST, data = {'old_password': ['現在のパスワードが異なります']})
             # set_password also hashes the password that the user will get
@@ -119,7 +121,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     
     def update(self, request, *args, **kwargs):
-        print(request.data)
         
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -129,10 +130,10 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=update_data, partial=partial)
         
         if not serializer.is_valid():
-            return Response(status = status.HTTP_400_BAD_REQUEST, data = serializers.errors)
+            print(update_data)
+            return Response(status = status.HTTP_400_BAD_REQUEST, data = serializer.errors)
         else:
             instance = serializer.save()
-            print(instance.thumbnail.url)
             data = self.get_serializer(instance, many = False).data
             return Response(status = status.HTTP_200_OK, data = data)
 
