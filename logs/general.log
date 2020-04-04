@@ -511,3 +511,12 @@
 [INFO]	asctime:2020-04-02 23:57:52,585	module:consumers	message:after send room
 [INFO]	asctime:2020-04-02 23:58:08,323	module:consumers	message:after notify user
 [INFO]	asctime:2020-04-02 23:58:08,336	module:consumers	message:after send room
+[INFO]	asctime:2020-04-04 06:55:03,707	module:consumers	message:after notify user
+[INFO]	asctime:2020-04-04 06:55:03,713	module:consumers	message:after send room
+[INFO]	asctime:2020-04-04 06:55:23,788	module:consumers	message:after notify user
+[INFO]	asctime:2020-04-04 06:55:23,813	module:consumers	message:after send room
+[ERROR]	asctime:2020-04-04 11:44:28,691	module:consumers	message:('room id is not in rooms',)
+[INFO]	asctime:2020-04-04 14:55:31,865	module:consumers	message:after notify user
+[INFO]	asctime:2020-04-04 14:55:31,871	module:consumers	message:after send room
+[INFO]	asctime:2020-04-04 14:55:50,256	module:consumers	message:after notify user
+[INFO]	asctime:2020-04-04 14:55:50,278	module:consumers	message:after send room

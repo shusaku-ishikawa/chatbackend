@@ -23,5 +23,5 @@ urlpatterns = [
     path('chat/admin/', admin.site.urls),
     url(r'^auth/', include('myauth.urls')),
     url(r'^chat/', include('chat.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 追加
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
 

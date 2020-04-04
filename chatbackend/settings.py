@@ -51,7 +51,9 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://localhost:80',
+    'http://stoneriver.info'
 )
 
 
@@ -60,7 +62,7 @@ AUTH_USER_MODEL = 'myauth.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'chat.middlewares.DisableCSRFMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -92,7 +94,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('redis', 6379)],
         },
     },
 }
@@ -106,8 +108,8 @@ DATABASES = {
         'NAME': 'chatdb',
         'USER': 'root',
         'PASSWORD': '332191-Aa',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'HOST': 'mysql',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },

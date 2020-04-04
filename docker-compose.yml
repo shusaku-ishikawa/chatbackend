@@ -1,0 +1,58 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+    - ./nginx/conf:/etc/nginx/conf.d
+    - ./nginx/content:/usr/share/nginx/html
+    ports:
+    - "80:80"
+    links:
+    - daphne
+    - gunicorn
+    depends_on:
+    - daphne
+    - gunicorn
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 332191-Aa
+      MYSQL_DATABASE: chatdb
+      MYSQL_USER: root
+      TZ: 'Asia/Tokyo'
+    ports:
+    - 3306:3306
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  gunicorn:
+    build: ./
+    volumes: 
+    - ./:/code/app/
+    command: bash -c "/wait &&  python manage.py makemigrations && python manage.py migrate && python manage.py create_admin_user && gunicorn --bind 0.0.0.0:8000 chatbackend.wsgi:application"
+    ports:
+    - 8000:8000
+    depends_on:
+    - mysql
+    links:
+    - mysql
+    environment:
+    - WAIT_HOSTS=mysql:3306
+    - WAIT_HOSTS_TIMEOUT=300
+    - WAIT_SLEEP_INTERVAL=30
+    - WAIT_HOST_CONNECT_TIMEOUT=30  
+  daphne:
+    build: ./
+    volumes: 
+    - ./:/code/app/ 
+    command: bash -c "daphne -b 0.0.0.0 -p 8001 chatbackend.asgi:application"
+    ports:
+      - "8001:8001"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    links:
+      - redis
