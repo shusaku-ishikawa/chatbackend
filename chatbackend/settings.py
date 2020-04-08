@@ -144,19 +144,10 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
-        'file_general': { 
-            'level': 'DEBUG',  # DEBUG以上のログを取り扱うという意味
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/general.log'),
-            'formatter': 'all',
-            'maxBytes': 1024 * 1024,
-            'backupCount': 10,
-        },
-
     },
     'loggers': {  # どんなloggerがあるかを設定する
         'myLogger': { 
-            'handlers': ['file_general', 'console'],  # 先述のfile, consoleの設定で出力
+            'handlers': ['console'],  # 先述のfile, consoleの設定で出力
             'level': 'DEBUG',
         },
     },
